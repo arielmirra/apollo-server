@@ -1,4 +1,5 @@
-const {ApolloServer, gql} = require('apollo-server')
+const { ApolloServer, gql } = require('apollo-server')
+const sessions = require('./data/sessions.json')
 
 const typeDefs = gql`
 type Query {
@@ -18,10 +19,18 @@ type Session {
 }
 `
 
-const server = new ApolloServer({typeDefs})
+const resolvers = {
+  Query: {
+    sessions: () => {
+      return sessions;
+    }
+  }
+}
+
+const server = new ApolloServer({ typeDefs, resolvers })
 
 server
-.listen({port: process.env.PORT || 4000})
-.then(({url})=>{
+  .listen({ port: process.env.PORT || 4000 })
+  .then(({ url }) => {
     console.log(`graphql running at ${url}`)
-})
+  })
