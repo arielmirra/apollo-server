@@ -14,7 +14,7 @@ type Session {
     room: String,
     day: String,
     format: String,
-    track: String,
+    track: String @deprecated(reason: "Too many sessions don't fit under a single track, will become a list"),
     level: String
 }
 `
@@ -22,7 +22,7 @@ type Session {
 const resolvers = {
   Query: {
     sessions: () => {
-      return sessions;
+      return sessions
     }
   }
 }
