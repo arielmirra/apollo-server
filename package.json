@@ -24,6 +24,7 @@
   "homepage": "https://github.com/arielmirra/apollo-server#readme",
   "dependencies": {
     "apollo-server": "^3.6.4",
+    "lodash": "^4.17.21",
     "nodemon": "^2.0.15"
   },
   "devDependencies": {

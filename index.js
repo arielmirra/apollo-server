@@ -1,9 +1,13 @@
+/* eslint-disable no-new */
+/* eslint-disable no-labels */
+/* eslint-disable no-unused-vars */
 const { ApolloServer, gql } = require('apollo-server')
-const sessions = require('./data/sessions.json')
+const SessionsAPI = require('./datasources/sessions')
 
 const typeDefs = gql`
 type Query {
-    sessions: [Session]
+    sessions: [Session],
+    sessionById(id: ID): Session
 }
 type Session {
     id: ID!
@@ -19,10 +23,17 @@ type Session {
 }
 `
 
+const datasources = () => {
+  sessionAPI: new SessionsAPI()
+}
+
 const resolvers = {
   Query: {
-    sessions: () => {
-      return sessions
+    sessions: (parent, args, { dataSources }, info) => {
+      return dataSources.SessionsAPI.getSessions()
+    },
+    sessionById: (parent, { id }, { dataSources }, info) => {
+      return dataSources.SessionsAPI.getSessionById(id)
     }
   }
 }
