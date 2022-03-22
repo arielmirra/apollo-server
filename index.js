@@ -23,18 +23,18 @@ type Session {
 }
 `
 
-const datasources = () => {
-  new SessionsAPI()
-}
-
 const resolvers = {
   Query: {
-    sessions: (parent, args, { dataSources }, info) => dataSources.SessionsAPI.getSessions(),
-    sessionById: (parent, { id }, { dataSources }, info) => dataSources.SessionsAPI.getSessionById(id),
+    sessions: (parent, args, { dataSources }, info) => dataSources.sessionAPI.getSessions(),
+    sessionById: (parent, { id }, { dataSources }, info) => dataSources.sessionAPI.getSessionById(id),
   },
 }
 
-const server = new ApolloServer({ typeDefs, resolvers })
+const dataSources = () => ({
+  sessionAPI: new SessionsAPI()
+})
+
+const server = new ApolloServer({ typeDefs, resolvers, dataSources })
 
 server
   .listen({ port: process.env.PORT || 4000 })
