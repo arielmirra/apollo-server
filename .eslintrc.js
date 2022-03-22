@@ -2,14 +2,15 @@ module.exports = {
   env: {
     browser: true,
     commonjs: true,
-    es2021: true
+    es2021: true,
   },
-  extends: [
-    'standard'
-  ],
+  extends: ['airbnb'],
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 'latest',
   },
   rules: {
-  }
+    semi: [2, 'never'],
+    'class-methods-use-this': 0,
+    'max-len': ['warn', { code: 120 }],
+  },
 }

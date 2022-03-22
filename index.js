@@ -24,18 +24,14 @@ type Session {
 `
 
 const datasources = () => {
-  sessionAPI: new SessionsAPI()
+  new SessionsAPI()
 }
 
 const resolvers = {
   Query: {
-    sessions: (parent, args, { dataSources }, info) => {
-      return dataSources.SessionsAPI.getSessions()
-    },
-    sessionById: (parent, { id }, { dataSources }, info) => {
-      return dataSources.SessionsAPI.getSessionById(id)
-    }
-  }
+    sessions: (parent, args, { dataSources }, info) => dataSources.SessionsAPI.getSessions(),
+    sessionById: (parent, { id }, { dataSources }, info) => dataSources.SessionsAPI.getSessionById(id),
+  },
 }
 
 const server = new ApolloServer({ typeDefs, resolvers })
